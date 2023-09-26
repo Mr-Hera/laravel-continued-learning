@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PayOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-class Service
-{
-    //
-}
- 
-Route::get('/', function (Service $service) {
-    die(get_class($service));
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::get('pay', [PayOrderController::class, 'store']);
