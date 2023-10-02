@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\PayOrderController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\PayOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,5 @@ Route::get('/', function () {
 });
 
 Route::get('pay', [PayOrderController::class, 'store']);
+Route::get('channels', [ChannelController::class, 'index']);
+Route::get('posts/create', [PostController::class, 'create']);
