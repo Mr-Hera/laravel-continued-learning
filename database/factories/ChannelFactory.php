@@ -17,6 +17,9 @@ class ChannelFactory extends Factory
      */
     public function definition(): array
     {
+        // when using tinker to populated DB don't forget to 'use App\Models\Channel;'
+        // this allows you to make the call Channel::factory()->count(20)->create();
+        
         return [
             'name' => fake()->word(),
         ];
