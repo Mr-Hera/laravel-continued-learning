@@ -1,11 +1,13 @@
 <?php
 
+use App\Postcard;
+use Illuminate\Support\Str;
+use App\PostcardSendingService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\PayOrderController;
-use App\Postcard;
-use App\PostcardSendingService;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +38,10 @@ Route::get('postcards', function() {
 // facades tutorial v2
 Route::get('facades', function() {
     Postcard::hello('Hello from Facades...', 'learningfacades@laravel.com');
+});
+
+Route::get('macros', function() {
+    dd(Str::partNumber('32165487545'));
+    // dd(Str::prefix('321654987', 'ABCD-'));
+    return Response::errorJson('A super huge error occurred!');
 });

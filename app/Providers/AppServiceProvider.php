@@ -3,11 +3,14 @@
 namespace App\Providers;
 
 use App\Models\Channel;
+use App\Mixins\StrMixins;
+use Illuminate\Support\Str;
 use App\PostcardSendingService;
 use App\Billing\BankPaymentGateway;
 use Illuminate\Support\Facades\View;
 use App\Billing\CreditPaymentGateway;
 use App\Billing\PaymentGatewayContract;
+use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\ServiceProvider;
 use App\Http\View\Composers\ChannelsComposer;
 
@@ -49,6 +52,24 @@ class AppServiceProvider extends ServiceProvider
         // register postcard sending service
         $this->app->singleton('Postcard', function($app) {
             return new PostcardSendingService('spain', 4, 6);
+        });
+
+        // adding a macro
+        Str::macro('partNumber', function($part) {
+            return 'ABC-' . substr($part, 0, 3) . '-' . substr($part, 3);
+        });
+
+        /* 
+            adding a macro mixin with <false> attribute to ensure macros with similar 'method' as defined in the mixin 
+            don't get overwritten by this one of the mixin
+        */
+        Str::mixin(new StrMixins(), false);
+
+        ResponseFactory::macro('errorJson', function($message = 'Default error message') {
+            return [
+                'message' => $message,
+                'error_code' => 123,
+            ];
         });
     }
 }
